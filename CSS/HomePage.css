@@ -1,0 +1,66 @@
+@import url(./Font.css);
+.headerElement {
+    display: flex;
+    justify-content: space-evenly;
+    
+}
+
+.websiteName {
+    font-family: "Lobster";
+    font-weight: 400;
+    font-size: 24px;
+    leading-trim: NONE;
+    line-height: 100%;
+    letter-spacing: 0%;
+    margin-top: 40px;
+
+}
+
+.pagesNavigation {
+    display: flex;
+    font-family: "Inter";
+    font-weight: 500;
+    font-size: 16px;
+    leading-trim: NONE;
+    line-height: 100%;
+    letter-spacing: -2%;
+    margin-top: 46px;
+
+}
+
+.socialIcons {
+    width: 133.96px;
+    height: 22px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 44px;
+} 
+
+.featuredRecipe {
+    display: flex;
+    margin-top: 140px;
+    border-radius: ;
+}
+
+.recipeDiscription {
+    width: 620px;
+    height: 640px;
+    background-color: rgba(231, 250, 254, 1);
+        font-family: "Inter";
+
+}
+
+.recipeTitle {
+    display: flex;
+    width: 156px;
+    height: 45px;
+    justify-content: center;
+    /* justify-content: space-evenly; */
+    border-radius: 10px;
+    background-color:rgba(255, 255, 255, 1);
+    box-shadow: 10px 20px 40px 0px rgba(41, 64, 70, 0.1);
+    margin-top: 50px ;
+
+
+}
+
