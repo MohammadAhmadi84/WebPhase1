@@ -37,30 +37,71 @@
 } 
 
 .featuredRecipe {
+    width: 1280;
+    height: 640;
     display: flex;
-    margin-top: 140px;
-    border-radius: ;
+    margin-top: 40px;
+    margin-left: 80px;
+    justify-content: center;
+    border-radius: 20PX;
+    overflow: hidden;
 }
-
+    
 .recipeDiscription {
     width: 620px;
     height: 640px;
     background-color: rgba(231, 250, 254, 1);
-        font-family: "Inter";
-
+    font-family: "Inter";
+    border-radius: 20px 0px 0px 20px;
 }
 
 .recipeTitle {
     display: flex;
     width: 156px;
     height: 45px;
-    justify-content: center;
-    /* justify-content: space-evenly; */
-    border-radius: 10px;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 50px;
     background-color:rgba(255, 255, 255, 1);
     box-shadow: 10px 20px 40px 0px rgba(41, 64, 70, 0.1);
-    margin-top: 50px ;
-
 
 }
+.recipeItem {
+    margin-top: 50px ;
+    margin-left: 50px;
+}
 
+.recipeTime-name {
+    width: 100px;
+    height: 30px;
+    display: flex;
+    justify-content: space-evenly;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 30px;
+    overflow: hidden;
+    align-items: center;
+    font-size: 10px;
+    gap: 5px;
+    margin-top: 20px;
+}
+.Ellipse {
+    width: 170px;
+    height: 50px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    
+}
+
+.PlayButton  {
+    display: flex;
+    width: 170px;
+    height: 50px;
+    background-color: black;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 20px;
+    color: white;
+    margin-right: 30px;
+
+}
