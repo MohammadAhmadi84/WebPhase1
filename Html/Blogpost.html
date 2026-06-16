@@ -4,10 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Foodiland-Blog Post</title>
-    <link rel="stylesheet" href="../CSS/Header.css">
-    <link rel="stylesheet" href="../CSS/Footer.css">
     <link rel="stylesheet" href="../CSS/Main.css">
-    <link rel="stylesheet" href="../CSS/EmailInbox.css">
     <link rel="stylesheet" href="../CSS/BlogPost.CSS">
     <link rel="stylesheet" href="../CSS/HomePage.css">
 
@@ -99,7 +96,7 @@
         <section style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 100px; font-family: Inter;">
             <h2>Check out the delicious recipe</h2>
             <div class="recipeSuggestMenu">
-                <div class="recipeSuggestMenuItem">
+                <div class="recipeSuggestMenuItem recipe-card">
                     <img src="../image/tropical salad.png" alt="">
                     <p>Mixed Tropical Fruit Salad with <br>Superfood Boosts</p>
                     <div>
@@ -108,7 +105,7 @@
                     </div>
                     <img class="likeItem" src="../image/like.png" alt="">
                 </div>
-                <div class="recipeSuggestMenuItem">
+                <div class="recipeSuggestMenuItem recipe-card">
                     <img src="../image/beef.png" alt="">
                     <p>Big and Juicy Wagyu Beef <br>Cheeseburger</p>
                     <div>
@@ -117,7 +114,7 @@
                     </div>
                     <img class="likeItem" src="../image/dislike.png" alt="">
                 </div>
-                <div class="recipeSuggestMenuItem">
+                <div class="recipeSuggestMenuItem recipe-card">
                     <img src="../image/japanese fried rice.png" alt="">
                     <p>Healthy Japanese Fried Rice with <br>Asparagus </p>
                     <div>
@@ -126,7 +123,43 @@
                     </div>
                     <img class="likeItem" src="../image/like.png" alt="">
                 </div>
-                <div class="recipeSuggestMenuItem">
+                <div class="recipeSuggestMenuItem recipe-card">
+                    <img src="../image/taco.png" alt="">
+                    <p>Cauliflower Walnut Vegetarian Taco <br>Meat</p>
+                    <div>
+                         <div><img src="../image/Timer.png" alt="">30 Minuets</div>
+                         <div><img src="../image/ForkKnife.png" alt="">Eastern</div>
+                    </div>
+                    <img class="likeItem" src="../image/dislike.png" alt="">
+                </div>
+                <div class="recipeSuggestMenuItem recipe-card">
+                    <img src="../image/tropical salad.png" alt="">
+                    <p>Mixed Tropical Fruit Salad with <br>Superfood Boosts</p>
+                    <div>
+                         <div><img src="../image/Timer.png" alt="">30 Minuets</div>
+                         <div><img src="../image/ForkKnife.png" alt="">Healthy</div>
+                    </div>
+                    <img class="likeItem" src="../image/like.png" alt="">
+                </div>
+                <div class="recipeSuggestMenuItem recipe-card">
+                    <img src="../image/beef.png" alt="">
+                    <p>Big and Juicy Wagyu Beef <br>Cheeseburger</p>
+                    <div>
+                         <div><img src="../image/Timer.png" alt="">30 Minuets</div>
+                         <div><img src="../image/ForkKnife.png" alt="">Western</div>
+                    </div>
+                    <img class="likeItem" src="../image/dislike.png" alt="">
+                </div>
+                <div class="recipeSuggestMenuItem recipe-card">
+                    <img src="../image/japanese fried rice.png" alt="">
+                    <p>Healthy Japanese Fried Rice with <br>Asparagus </p>
+                    <div>
+                         <div><img src="../image/Timer.png" alt="">30 Minuets</div>
+                         <div><img src="../image/ForkKnife.png" alt="">Healthy</div>
+                    </div>
+                    <img class="likeItem" src="../image/like.png" alt="">
+                </div>
+                <div class="recipeSuggestMenuItem recipe-card">
                     <img src="../image/taco.png" alt="">
                     <p>Cauliflower Walnut Vegetarian Taco <br>Meat</p>
                     <div>
@@ -161,6 +194,41 @@
                 </div>
             </div>
     </footer>
-    <script src="script.js"></script>
+    <script src="script.js">
+    </script>
+    <script>
+        const sliderMenu = document.querySelector('.recipeSuggestMenu');
+        if (sliderMenu) {
+            sliderMenu.style.display = 'flex';
+            sliderMenu.style.flexDirection = 'row';
+            sliderMenu.style.flexWrap = 'nowrap';
+            sliderMenu.style.overflowX = 'scroll'; 
+            sliderMenu.style.scrollBehavior = 'smooth';
+    
+            const gapAmount = 20; 
+            sliderMenu.style.gap = `${gapAmount}px`;
+
+            const allItems = sliderMenu.querySelectorAll('.recipeSuggestMenuItem');
+
+            function resizeSlider() {
+                const singleCardWidth = allItems[0].getBoundingClientRect().width || 280;
+
+                const exactContainerWidth = (singleCardWidth * 4) + (gapAmount * 3);
+        
+                sliderMenu.style.width = `${exactContainerWidth}px`;
+                sliderMenu.style.maxWidth = '100%'; // برای اینکه در مانیتورهای کوچک‌تر از صفحه بیرون نزند
+                sliderMenu.style.boxSizing = 'border-box';
+
+                allItems.forEach(item => {
+                item.style.flex = `0 0 ${singleCardWidth}px`;
+                item.style.boxSizing = 'border-box';
+                });
+            }
+
+            resizeSlider();
+    
+            window.addEventListener('resize', resizeSlider);
+        }
+    </script>
 </body>   
 </html>

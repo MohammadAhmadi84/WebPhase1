@@ -261,46 +261,4 @@
     gap: 5px;
 }
 
-.recipeSuggest{
-    width: 1280;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 100px;
-    font-family: "Inter";
 
-}
-.recipeSuggestMenu {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 50px;
-    width: 1280;
-    margin-top: 50px;
-}
-
-.recipeSuggestMenuItem {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: start;
-    position: relative;
-}
-
-.recipeSuggestMenuItem > p {
-    font-weight: 600;
-}
-
-.recipeSuggestMenuItem > div {
-    display: flex;
-    justify-content: start;
-    gap: 50px;
-}
-
-.recipeSuggestMenuItem > div > div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 15px;
-    gap: 5px;
-}
