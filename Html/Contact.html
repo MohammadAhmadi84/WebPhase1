@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../CSS/Main.css">
     <link rel="stylesheet" href="../CSS/EmailInbox.css">
     <link rel="stylesheet" href="../CSS/Contact.CSS">
+    <link rel="stylesheet" href="../CSS/HomePage.css">
 </head>
 <body>
     <header class="header">
@@ -31,5 +32,128 @@
         </div>
         <hr style="color: srgba(0, 0, 0, 0.1);">
     </header>
+    <main class="main">
+        <section style="display: flex;width: 1280px; gap: 20px; margin-top: 80px;">
+            <img src="../image/contactChef.png" alt="" width="400px" height="447px" style="margin-top: 150px;">
+            <div class="form-section">
+                <h1>Contact us</h1>
+            
+                <form action="" method="POST">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="name">NAME</label>
+                            <input type="text" id="name" name="name" placeholder="Enter your name..." required>
+                        </div>
+
+                        <div class="form-group">
+                                <label for="email">EMAIL ADDRESS</label>
+                            <input type="email" id="email" name="email" placeholder="Your email address..." required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">SUBJECT</label>
+                            <input type="text" id="subject" name="subject" placeholder="Enter subject..." required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="enquiry">ENQUIRY TYPE</label>
+                            <div class="select-wrapper">
+                                <select id="enquiry" name="enquiry">
+                                    <option value="advertising">Advertising</option>
+                                    <option value="support">Support</option>
+                                    <option value="general">General Inquiry</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="message">MESSAGES</label>
+                        <textarea id="message" name="message" placeholder="Enter your messages..." rows="6" required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Submit</button>
+                </form>
+            </div>
+        </section>
+        <section class="EmailInbox">
+            <h1 style="text-align: center;">Deliciousness to your inbox</h1>
+            <p style="color: rgba(0, 0, 0, 0.5); text-align: center;">Lorem ipsum dolor sit amet, consectetuipisicing elit, sed do eiusmod tempor <br>incididunt ut labore et dolore magna aliqut enim ad minim</p>
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                <img src="../image/emailbox (2).png" alt="">
+                <div class="Subscribe">
+                    <form action="">
+                    <input class="EmailInput" type="email" placeholder="Your email address..." name="Email">
+                    <input type="submit" value="Subscribe" class="SubscribeButton">
+                    </form>
+                </div>
+                <img src="../image/emailbox (1).png" alt="" height="250px" style="margin-top: 100px;">
+            </div>
+        </section>
+        <section style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 100px; font-family: Inter;">
+            <h2>Check out the delicious recipe</h2>
+            <div class="recipeSuggestMenu">
+                <div class="recipeSuggestMenuItem">
+                    <img src="../image/tropical salad.png" alt="">
+                    <p>Mixed Tropical Fruit Salad with <br>Superfood Boosts</p>
+                    <div>
+                         <div><img src="../image/Timer.png" alt="">30 Minuets</div>
+                         <div><img src="../image/ForkKnife.png" alt="">Healthy</div>
+                    </div>
+                    <img class="likeItem" src="../image/like.png" alt="">
+                </div>
+                <div class="recipeSuggestMenuItem">
+                    <img src="../image/beef.png" alt="">
+                    <p>Big and Juicy Wagyu Beef <br>Cheeseburger</p>
+                    <div>
+                         <div><img src="../image/Timer.png" alt="">30 Minuets</div>
+                         <div><img src="../image/ForkKnife.png" alt="">Western</div>
+                    </div>
+                    <img class="likeItem" src="../image/dislike.png" alt="">
+                </div>
+                <div class="recipeSuggestMenuItem">
+                    <img src="../image/japanese fried rice.png" alt="">
+                    <p>Healthy Japanese Fried Rice with <br>Asparagus </p>
+                    <div>
+                         <div><img src="../image/Timer.png" alt="">30 Minuets</div>
+                         <div><img src="../image/ForkKnife.png" alt="">Healthy</div>
+                    </div>
+                    <img class="likeItem" src="../image/like.png" alt="">
+                </div>
+                <div class="recipeSuggestMenuItem">
+                    <img src="../image/taco.png" alt="">
+                    <p>Cauliflower Walnut Vegetarian Taco <br>Meat</p>
+                    <div>
+                         <div><img src="../image/Timer.png" alt="">30 Minuets</div>
+                         <div><img src="../image/ForkKnife.png" alt="">Eastern</div>
+                    </div>
+                    <img class="likeItem" src="../image/dislike.png" alt="">
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer style="display: flex; flex-direction: column; width: 1280px; margin-left: 110px;">
+            <div class="footerTop">
+                <div>
+                    <h1 class="websiteName">Foodiland<span style="color: rgb(255, 128, 0);">.</span></h1>
+                    <p style="color: rgba(0, 0, 0, 0.5); font-family: Inter;">Lorem ipsum dolor sit amet, consectetuipisicing elit,</p>
+                </div>
+                <nav style="font-family: Inter; display: flex; justify-content: space-between;">
+                    <ul>Recipes</ul>
+                    <ul>Blog</ul>
+                    <ul>Contact</ul>
+                    <ul>About us</ul>
+                </nav>
+            </div>
+            <hr style="color: rgb(0, 0, 0); margin-top: 10px; width: 100%;">
+            <div class="footerUnder">
+                <p>© 2020 Flowbase. Powered by <span style="color: rgb(255, 128, 0);">Webflow</span></p>
+                <div class="footersocialIcons">
+                    <img src="../image/facebook.png" alt="">
+                    <img src="../image/twitter.png" alt="">
+                    <img src="../image/instagram.png" alt="">
+                </div>
+            </div>
+    </footer>
 </body>
 </html>
