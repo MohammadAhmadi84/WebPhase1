@@ -1,0 +1,64 @@
+@import url(./Font.css);
+
+.title {
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    width: 1280px;
+    justify-content: center;
+    align-items: center;
+    font-family: "Inter";
+    gap: 30px;
+}
+.blogger {
+    position: relative;
+    width: 324px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.blogger::after {
+    content: "";
+    position: absolute;
+    left: 203px;
+    top: 30px;
+    transform: translate(-50% , -50%);
+    width: 1px;
+    height: 40px;
+    background-color: rgba(0,0,0,0.1);
+}
+
+.post{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    margin-top: 50px;
+}
+
+.discription{
+    width: 920px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    font-family: "Inter";
+    gap: 150px;
+}
+
+.text {
+    color: rgba(0,0,0,0.3);
+    font-size: 16px;
+    
+}
+.social {
+    font-family: "Inter";
+    font-weight: 600;
+    width: 130px;
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    align-items: center;
+    gap: 70px;
+}
+
