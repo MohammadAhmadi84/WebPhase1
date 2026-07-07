@@ -1,0 +1,353 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+@import url(./Font.css);
+
+
+
+
+#footerBrandName {
+    font-family: "Lobster";
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    margin: 0;
+}
+
+#footerHeadRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 100px;
+}
+
+#footerBottomRow {
+    position: relative;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-family: "Inter";
+}
+
+#footerIconsGroup {
+    position: absolute;
+    top: 10px;
+    right: 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
+
+
+@media (max-width: 768px) {
+
+    #pageFooter {
+        width: 100% !important;
+        margin-left: 0 !important;
+        padding: 0 5%;
+    }
+
+    #footerHeadRow {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        margin-top: 60px;
+    }
+
+    #footerMenuList {
+        display: flex !important;
+        position: static !important;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        top: auto !important;
+        right: auto !important;
+        left: auto !important;
+        width: auto !important;
+        margin-top: 0;
+    }
+
+    #footerBottomRow {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    #footerIconsGroup {
+        position: static;
+        margin-top: 10px;
+    }
+}
+.headerElement {
+    display: flex;
+    justify-content: space-evenly;
+    
+}
+.websiteName {
+    font-family: "Lobster";
+    font-weight: 400;
+    font-size: 24px;
+    leading-trim: NONE;
+
+    line-height: 100%;
+    letter-spacing: 0%;
+    margin-top: 40px;
+}
+.pagesNavigation {
+    display: flex;
+    font-family: "Inter";
+    font-weight: 500;
+    font-size: 16px;
+    leading-trim: NONE;
+    line-height: 100%;
+    letter-spacing: -2%;
+    margin-top: 46px;
+}
+.socialIcons {
+    width: 133.96px;
+    height: 22px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 44px;
+}
+
+.hamburgerBtn {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 40px;
+}
+
+.hamburgerBtn span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: #222;
+    border-radius: 2px;
+    transition: 0.3s ease;
+}
+
+.hamburgerBtn.active span:nth-child(1) {
+    transform: translateY(8.5px) rotate(45deg);
+}
+.hamburgerBtn.active span:nth-child(2) {
+    opacity: 0;
+}
+.hamburgerBtn.active span:nth-child(3) {
+    transform: translateY(-8.5px) rotate(-45deg);
+}
+
+
+@media (max-width: 768px) {
+
+    .headerElement {
+        justify-content: space-between;
+        padding: 0 5%;
+        position: relative;
+    }
+
+    .hamburgerBtn {
+        display: flex;
+    }
+
+    .pagesNavigation {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        background-color: #fff;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        margin-top: 0;
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.08);
+        z-index: 999;
+    }
+
+    .pagesNavigation.open {
+        display: flex;
+    }
+
+    .pagesNavigation ul {
+        width: 100%;
+        text-align: center;
+        padding: 14px 0;
+        margin: 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .socialIcons {
+        display: none;
+    }
+}
+.EmailInbox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 1280px;
+    height: 600px;
+    border-radius: 50px;
+    background-color: rgb(215, 246, 255);
+    font-family: "Inter";
+    margin-top: 200px;
+    overflow: hidden;
+}
+
+.Subscribe {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 400px;
+    height: 80px;
+    margin-top: -100px;
+}
+
+.EmailInput {
+    background-color: white;
+    width: 400px;
+    height: 80px;
+    border-radius: 20px;
+    border-style: none;
+}
+
+.SubscribeButton {
+    position: absolute;
+    color: white;
+    background-color: black;
+    width: 100px;
+    height: 60px;
+    top: 10px;
+    right: 7px;
+    border-radius: 20px;
+    z-index: 5;
+}
+
+.EmailInbox > h1{
+    margin-top: 170px;
+}
+
+.EmailInbox > div > img {
+    margin-bottom: 50px;
+}
+.recipeSuggest{
+    width: 1280;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    font-family: "Inter";
+
+}
+.recipeSuggestMenu {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 50px;
+    width: 1280;
+    margin-top: 50px;
+}
+
+.recipeSuggestMenuItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+    position: relative;
+}
+
+.recipeSuggestMenuItem > p {
+    font-weight: 600;
+}
+
+.recipeSuggestMenuItem > div {
+    display: flex;
+    justify-content: start;
+    gap: 50px;
+}
+
+.recipeSuggestMenuItem > div > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    gap: 5px;
+}
+
+
+.Subscribe form {
+    position: relative;
+}
+
+.nlButtonSpinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-top-color: #fff;
+    animation: nlSpin 0.7s linear infinite;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+@keyframes nlSpin {
+    to { transform: rotate(360deg); }
+}
+
+.SubscribeButton:disabled {
+    opacity: 0.75;
+    cursor: not-allowed;
+}
+
+.nlStatusMessage {
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    margin-top: 10px;
+    min-height: 18px;
+    text-align: center;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.nlStatusMessage.nlSuccess {
+    color: #1a8f4c;
+}
+
+.nlStatusMessage.nlError {
+    color: #d9363e;
+}
+
+.nlStatusMessage.nlInfo {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.nlRetryLink {
+    color: rgb(255, 128, 0);
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    padding: 0;
+}

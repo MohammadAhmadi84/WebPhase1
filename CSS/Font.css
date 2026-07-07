@@ -1,0 +1,9 @@
+@font-face {
+    font-family:"Lobster" ;
+    src: url(../Font/Lobster/Lobster-Regular.ttf) format(ttf);
+}
+
+@font-face {
+    font-family: "Inter";
+    src: url(../Font/Inter/Inter-VariableFont_opsz\,wght.ttf);
+}
