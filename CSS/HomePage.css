@@ -262,3 +262,98 @@
 }
 
 
+/* ==========================================================
+   استایل حالت لودینگ و خطا برای بخش دسته‌بندی‌ها
+   ========================================================== */
+
+.catLoadingWrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    width: 100%;
+    padding: 50px 20px;
+}
+
+.catSpinner {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 4px solid rgba(255, 128, 0, 0.15);
+    border-top-color: rgb(255, 128, 0);
+    animation: catSpin 0.8s linear infinite;
+}
+
+@keyframes catSpin {
+    to { transform: rotate(360deg); }
+}
+
+.catLoadingText {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.55);
+    text-align: center;
+    transition: opacity 0.3s ease;
+    min-height: 20px;
+}
+
+.catErrorWrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.catErrorIcon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: rgba(255, 59, 48, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+
+.catErrorMessage {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.6);
+    max-width: 320px;
+}
+
+.catRetryBtn {
+    margin-top: 4px;
+    padding: 10px 28px;
+    background-color: rgb(255, 128, 0);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.catRetryBtn:hover {
+    background-color: #e67300;
+}
+
+.catRetryBtn:active {
+    transform: scale(0.97);
+}
+
+.catEmptyText {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    width: 100%;
+    padding: 40px 20px;
+}

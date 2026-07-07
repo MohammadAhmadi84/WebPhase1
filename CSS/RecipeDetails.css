@@ -414,3 +414,115 @@
 .Directions > p {
     color: rgba(0, 0, 0, 0.5);
 }
+/* ==========================================================
+   استایل حالت لودینگ و خطا برای صفحه جزئیات رسپی
+   (باکس تغذیه + پاراگراف توضیحات)
+   ========================================================== */
+
+.rdLoadingWrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+    padding: 40px 20px;
+}
+
+.rdSpinner {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 4px solid rgba(255, 128, 0, 0.15);
+    border-top-color: rgb(255, 128, 0);
+    animation: rdSpin 0.8s linear infinite;
+}
+
+@keyframes rdSpin {
+    to { transform: rotate(360deg); }
+}
+
+.rdLoadingText {
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.55);
+    text-align: center;
+    transition: opacity 0.3s ease;
+    min-height: 18px;
+}
+
+.rdErrorWrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 30px 16px;
+    text-align: center;
+}
+
+.rdErrorIcon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: rgba(255, 59, 48, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.rdErrorMessage {
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.6);
+    max-width: 260px;
+}
+
+.rdRetryBtn {
+    margin-top: 2px;
+    padding: 8px 22px;
+    background-color: rgb(255, 128, 0);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.rdRetryBtn:hover {
+    background-color: #e67300;
+}
+
+.rdRetryBtn:active {
+    transform: scale(0.97);
+}
+
+.rdDescriptionSkeleton {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 50px;
+}
+
+.rdSkeletonLine {
+    height: 14px;
+    border-radius: 6px;
+    background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.06) 25%,
+        rgba(0, 0, 0, 0.12) 37%,
+        rgba(0, 0, 0, 0.06) 63%
+    );
+    background-size: 400% 100%;
+    animation: rdShimmer 1.4s ease infinite;
+}
+
+@keyframes rdShimmer {
+    0% { background-position: 100% 50%; }
+    100% { background-position: 0 50%; }
+}

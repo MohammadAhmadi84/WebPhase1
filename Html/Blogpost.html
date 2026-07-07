@@ -15,7 +15,7 @@
             <div class="websiteName">
                 Foodiland<span style="color: rgb(255, 128, 0);">.</span>
             </div>
-            <nav class="pagesNavigation">
+            <nav class="pagesNavigation" id="pagesNavigation">
                 <ul>Home</ul>
                 <ul>Recipes</ul>
                 <ul>Blog</ul>
@@ -27,6 +27,11 @@
                 <img src="../image/twitter.png" alt="twitter">
                 <img src="../image/instagram.png" alt="instagram">
             </div>
+            <button class="hamburgerBtn" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
         <hr style="color: srgba(0, 0, 0, 0.1);">
     </header>
@@ -42,7 +47,7 @@
                 <p style="font-size: 11px; color: rgba(0, 0, 0, 0.6);">15 March 2022</p>
             </div>
             <p style="text-align: center;color: rgba(0, 0, 0, 0.6);">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac ultrices odio. Nulla at congue diam, at dignissim turpis. Ut vehicula sed <br>velit a faucibus. In feugiat vestibulum velit vel pulvinar.</p>
-            <img src="../image/pro chef.png" alt="" width="1280px" height="600px" style="margin-top: 30px;">
+            <img class="featuredImage" src="../image/pro chef.png" alt="" width="1280px" height="600px" style="margin-top: 30px;">
         </section>
         <section class="post">   
             <div class="discription">   
@@ -56,7 +61,7 @@
                 </div>
                 <div>
                     <h3>Do you cook at home on your days off?</h3>
-                    <img src="../image/Dchef.png" alt="">
+                    <img class="inlineImage" src="../image/Dchef.png" alt="">
                     <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac ultrices odio. Nulla at congue diam, at <br> dignissim turpis. Ut vehicula sed velit a faucibus. In feugiat vestibulum velit vel pulvinar. Fusce id mollis ex. <br> Praesent feugiat elementum ex ut suscipit.</p>
 
                 </div>
@@ -65,7 +70,7 @@
                     <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac ultrices odio. Nulla at congue diam, at <br> dignissim turpis. Ut vehicula sed velit a faucibus. In feugiat vestibulum velit vel pulvinar. Fusce id mollis ex. <br> Praesent feugiat elementum ex ut suscipit.</p>
 
                 </div>
-                <div style="display: flex; background: linear-gradient(rgba(0, 0, 0, 0.1),rgba(0, 0, 0, 0));height: 224px;width: 920px;border-radius: 5px; align-items: center;justify-content: center;">
+                <div class="quoteBox" style="display: flex; background: linear-gradient(rgba(0, 0, 0, 0.1),rgba(0, 0, 0, 0));height: 224px;width: 920px;border-radius: 5px; align-items: center;justify-content: center;">
                     <p style="font-style: italic; font-weight: 500;font-size: 36px;">“Lorem ipsum dolor sit amet, consectetur adipiscing <br> elit. Curabitur ac ultrices odio.”</p>
                 </div>
                 <div>
@@ -171,13 +176,13 @@
             </div>
         </section>
     </main>
-    <footer style="display: flex; flex-direction: column; width: 1280px; margin-left: 110px;">
-            <div class="footerTop">
+    <footer id="pageFooter" style="display: flex; flex-direction: column; width: 1280px; margin-left: 110px;">
+            <div id="footerHeadRow">
                 <div>
-                    <h1 class="websiteName">Foodiland<span style="color: rgb(255, 128, 0);">.</span></h1>
+                    <h1 id="footerBrandName">Foodiland<span style="color: rgb(255, 128, 0);">.</span></h1>
                     <p style="color: rgba(0, 0, 0, 0.5); font-family: Inter;">Lorem ipsum dolor sit amet, consectetuipisicing elit,</p>
                 </div>
-                <nav class="pagesNavigation" style="font-family: Inter; display: flex; justify-content: space-between;">
+                <nav id="footerMenuList" style="font-family: Inter; display: flex; justify-content: space-between;">
                     <ul>Recipes</ul>
                     <ul>Blog</ul>
                     <ul>Contact</ul>
@@ -185,9 +190,9 @@
                 </nav>
             </div>
             <hr style="color: rgb(0, 0, 0); margin-top: 10px; width: 100%;">
-            <div class="footerUnder">
+            <div id="footerBottomRow">
                 <p>© 2020 Flowbase. Powered by <span style="color: rgb(255, 128, 0);">Webflow</span></p>
-                <div class="footersocialIcons">
+                <div id="footerIconsGroup">
                     <img src="../image/facebook.png" alt="">
                     <img src="../image/twitter.png" alt="">
                     <img src="../image/instagram.png" alt="">
@@ -198,35 +203,92 @@
     </script>
     <script>
         const sliderMenu = document.querySelector('.recipeSuggestMenu');
+
         if (sliderMenu) {
-            sliderMenu.style.display = 'flex';
-            sliderMenu.style.flexDirection = 'row';
-            sliderMenu.style.flexWrap = 'nowrap';
-            sliderMenu.style.overflowX = 'scroll'; 
-            sliderMenu.style.scrollBehavior = 'smooth';
-    
-            const gapAmount = 20; 
-            sliderMenu.style.gap = `${gapAmount}px`;
-
+            const gapAmount = 20;
             const allItems = sliderMenu.querySelectorAll('.recipeSuggestMenuItem');
+            const MOBILE_BREAKPOINT = 768; // همان breakpoint استفاده‌شده در بقیه صفحات
 
-            function resizeSlider() {
+    // ===================================================
+    // حالت دسکتاپ - دقیقاً همان کد اصلی شما، بدون هیچ تغییری
+    // ===================================================
+            function applyDesktopLayout() {
+                sliderMenu.style.display = 'flex';
+                sliderMenu.style.flexDirection = 'row';
+                sliderMenu.style.flexWrap = 'nowrap';
+                sliderMenu.style.overflowX = 'scroll';
+                sliderMenu.style.overflowY = 'visible';
+                sliderMenu.style.scrollBehavior = 'smooth';
+                sliderMenu.style.gap = `${gapAmount}px`;
+
+        // قبل از اندازه‌گیری، استایل‌های احتمالی حالت موبایل را ریست می‌کنیم
+        // تا اندازه‌گیری singleCardWidth درست انجام شود
+                allItems.forEach(item => {
+                    item.style.width = '';
+                    item.style.flex = '';
+                });
+
                 const singleCardWidth = allItems[0].getBoundingClientRect().width || 280;
-
                 const exactContainerWidth = (singleCardWidth * 4) + (gapAmount * 3);
-        
+
                 sliderMenu.style.width = `${exactContainerWidth}px`;
-                sliderMenu.style.maxWidth = '100%'; // برای اینکه در مانیتورهای کوچک‌تر از صفحه بیرون نزند
+                sliderMenu.style.maxWidth = '100%';
                 sliderMenu.style.boxSizing = 'border-box';
 
                 allItems.forEach(item => {
-                item.style.flex = `0 0 ${singleCardWidth}px`;
-                item.style.boxSizing = 'border-box';
+                    item.style.flex = `0 0 ${singleCardWidth}px`;
+                    item.style.boxSizing = 'border-box';
                 });
             }
 
+    // ===================================================
+    // حالت موبایل - تک‌ستونه، وسط‌چین، بدون سرریز از صفحه
+    // ===================================================
+            function applyMobileLayout() {
+        // container اصلی
+                sliderMenu.style.display = 'flex';
+                sliderMenu.style.flexDirection = 'column';
+                sliderMenu.style.flexWrap = 'nowrap';
+                sliderMenu.style.alignItems = 'center';   // کارت‌ها وسط صفحه قرار بگیرند
+                sliderMenu.style.overflowX = 'hidden';    // جلوگیری از سرریز افقی
+                sliderMenu.style.overflowY = 'visible';
+                sliderMenu.style.scrollBehavior = 'auto';
+                sliderMenu.style.gap = `${gapAmount}px`;
+                sliderMenu.style.width = '100%';
+                sliderMenu.style.maxWidth = '100%';
+                sliderMenu.style.boxSizing = 'border-box';
+                sliderMenu.style.padding = '0 5%';        // عرض ~۹۰-۹۵٪ صفحه
+
+                allItems.forEach(item => {
+                    item.style.flex = '0 0 auto';
+                    item.style.width = '100%';
+                    item.style.maxWidth = '400px';   // حداکثر عرض منطقی برای هر کارت (قابل تنظیم)
+                    item.style.minWidth = '0';       // اجازه‌ی جمع‌شدن آیتم؛ رفع باگ سرریز فلکس‌باکس
+                    item.style.boxSizing = 'border-box';
+
+            // فقط تصویر اصلی غذا (نه آیکون‌های تایمر/قاشق‌چنگال/لایک) ریسپانسیو شود
+                    const mainImg = item.querySelector('img:not(.likeItem)');
+                    if (mainImg) {
+                        mainImg.style.width = '100%';
+                        mainImg.style.maxWidth = '100%';
+                        mainImg.style.height = 'auto';
+                        mainImg.style.display = 'block';
+                    }
+                });
+            }
+
+    // ===================================================
+    // انتخاب حالت مناسب بر اساس عرض صفحه
+    // ===================================================
+            function resizeSlider() {
+                if (window.innerWidth <= MOBILE_BREAKPOINT) {
+                    applyMobileLayout();
+                } else {
+                    applyDesktopLayout();
+                }
+            }
+
             resizeSlider();
-    
             window.addEventListener('resize', resizeSlider);
         }
     </script>

@@ -13,7 +13,7 @@
             <div class="websiteName">
                 Foodiland<span style="color: rgb(255, 128, 0);">.</span>
             </div>
-            <nav class="pagesNavigation">
+            <nav class="pagesNavigation" id="pagesNavigation">
                 <ul>Home</ul>
                 <ul>Recipes</ul>
                 <ul>Blog</ul>
@@ -25,6 +25,11 @@
                 <img src="../image/twitter.png" alt="twitter">
                 <img src="../image/instagram.png" alt="instagram">
             </div>
+            <button class="hamburgerBtn" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
         <hr style="color: srgba(0, 0, 0, 0.1);">
     </header>
@@ -65,11 +70,11 @@
             <div>
                 <img src="../image/ChickenWings.png" alt="">
             </div>
-            <img src="../image/Badge.png" alt="" style="position: absolute; margin-top: 50px; left: 650; z-index: 5; ">
+            <img src="../image/Badge.png" alt="" style="position: absolute; margin-top: 50px; left: 650px; z-index: 5 ">
         </section>
         <section class="categories">
             <header class="categoriesTitle">
-                <h1 style="font-weight: 500; font-size: 32;">Categories</h1>
+                <h1 style="font-weight: 500;">Categories</h1>
                 <p class="viewRecipeButton">View All Categories</p>
             </header>
             <div class="categoryItem">
@@ -345,13 +350,13 @@
             </div>
         </section>
     </main>
-    <footer style="display: flex; flex-direction: column; width: 1280px; margin-left: 110px;">
-            <div class="footerTop">
+    <footer id="pageFooter" style="display: flex; flex-direction: column; width: 1280px; margin-left: 110px;">
+            <div id="footerHeadRow">
                 <div>
-                    <h1 class="websiteName">Foodiland<span style="color: rgb(255, 128, 0);">.</span></h1>
+                    <h1 id="footerBrandName">Foodiland<span style="color: rgb(255, 128, 0);">.</span></h1>
                     <p style="color: rgba(0, 0, 0, 0.5); font-family: Inter;">Lorem ipsum dolor sit amet, consectetuipisicing elit,</p>
                 </div>
-                <nav class="pagesNavigation" style="font-family: Inter; display: flex; justify-content: space-between;">
+                <nav id="footerMenuList" style="font-family: Inter; display: flex; justify-content: space-between;">
                     <ul>Recipes</ul>
                     <ul>Blog</ul>
                     <ul>Contact</ul>
@@ -359,9 +364,9 @@
                 </nav>
             </div>
             <hr style="color: rgb(0, 0, 0); margin-top: 10px; width: 100%;">
-            <div class="footerUnder">
+            <div id="footerBottomRow">
                 <p>© 2020 Flowbase. Powered by <span style="color: rgb(255, 128, 0);">Webflow</span></p>
-                <div class="footersocialIcons">
+                <div id="footerIconsGroup">
                     <img src="../image/facebook.png" alt="">
                     <img src="../image/twitter.png" alt="">
                     <img src="../image/instagram.png" alt="">
@@ -369,5 +374,143 @@
             </div>
     </footer>
     <script src="script.js"></script>
+    <script>// ==========================================================
+// home-category.js — دریافت و نمایش دسته‌بندی‌ها در صفحه Home
+// GET /api/categories
+// شامل: Loading Spinner شیک + مدیریت خطا با try/catch + دکمه Retry
+// نیازمند بارگذاری home-category.css در صفحه
+// ==========================================================
+
+        const BASE_URL = "https://foodieland-oq9b.onrender.com";
+
+// پیام‌هایی که هنگام بارگذاری به‌ترتیب و با تاخیر به کاربر نمایش داده می‌شوند
+// چون هاست رایگان ممکن است تا ۶۰ ثانیه طول بکشد تا بیدار شود
+        const LOADING_MESSAGES = [
+            { delay: 0, text: "در حال دریافت دسته‌بندی‌ها..." },
+            { delay: 5000, text: "سرور رایگان است و ممکن است کمی طول بکشد..." },
+            { delay: 15000, text: "سرور در حال بیدار شدن است، لطفاً کمی صبر کنید..." },
+            { delay: 30000, text: "تقریباً تمام شد، فقط چند ثانیه دیگر..." },
+        ];
+
+/**
+ * نمایش وضعیت لودینگ با اسپینر و پیام‌های متغیر
+ * خروجی: تابعی برای متوقف کردن چرخه‌ی پیام‌ها (باید در finally صدا زده شود)
+ */
+        function showLoading(container) {
+            container.innerHTML = `
+                <div class="catLoadingWrap">
+                    <div class="catSpinner"></div>
+                    <p class="catLoadingText" id="catLoadingText">${LOADING_MESSAGES[0].text}</p>
+                </div>
+            `;
+
+            const textEl = container.querySelector("#catLoadingText");
+            const timers = LOADING_MESSAGES.slice(1).map(({ delay, text }) =>
+                setTimeout(() => {
+                    if (textEl) {
+                        textEl.style.opacity = "0";
+                        setTimeout(() => {
+                            textEl.textContent = text;
+                            textEl.style.opacity = "1";
+                        }, 200);
+                    }
+        }, delay)
+            );
+
+    // برای پاک کردن تایمرها وقتی درخواست تمام شد (موفق یا خطا)
+            return () => timers.forEach(clearTimeout);
+        }
+
+/**
+ * نمایش پیام خطای کاربرپسند به همراه دکمه‌ی تلاش مجدد
+ */
+        function showError(container, message) {
+            container.innerHTML = `
+                <div class="catErrorWrap">
+                    <div class="catErrorIcon">⚠️</div>
+                    <p class="catErrorMessage">${message}</p>
+                    <button class="catRetryBtn" id="catRetryBtn">تلاش مجدد</button>
+                </div>
+            `;
+
+            const retryBtn = container.querySelector("#catRetryBtn");
+            if (retryBtn) {
+                retryBtn.addEventListener("click", initCategoriesPage);
+            }
+        }
+
+/**
+ * نمایش پیام حالت خالی (وقتی درخواست موفق بود ولی داده‌ای وجود نداشت)
+ */
+        function showEmpty(container) {
+            container.innerHTML = `<p class="catEmptyText">در حال حاضر دسته‌بندی‌ای برای نمایش وجود ندارد.</p>`;
+        }
+
+/**
+ * دریافت دسته‌بندی‌ها از API با مدیریت کامل خطا
+ */
+        async function getCategories() {
+            const response = await fetch(`${BASE_URL}/api/categories`);
+
+            if (!response.ok) {
+        // پیام‌های کاربرپسند بر اساس کد وضعیت
+                if (response.status === 404) {
+                    throw new Error("مسیر دسته‌بندی‌ها روی سرور پیدا نشد.");
+                }
+                if (response.status >= 500) {
+                    throw new Error("سرور با مشکل مواجه شده. لطفاً چند لحظه دیگر دوباره امتحان کنید.");
+                }
+                throw new Error(`خطا در دریافت اطلاعات (کد ${response.status}).`);
+            }
+
+            return await response.json();
+        }
+
+/**
+ * تابع اصلی: مدیریت لودینگ، خطا و رندر نهایی دسته‌بندی‌ها
+ */
+        async function initCategoriesPage() {
+            const categoriesContainer = document.querySelector(".categories .categoryItem");
+            if (!categoriesContainer) return; // یعنی در این صفحه نیستیم
+
+            const stopLoadingMessages = showLoading(categoriesContainer);
+
+            try {
+                const categories = await getCategories();
+
+                if (!categories || categories.length === 0) {
+                    showEmpty(categoriesContainer);
+                    return;
+                }
+
+        // ساختار فرض‌شده: { name: "...", icon: "https://..." }
+        // اگر نام فیلدهای واقعی API فرق داشت، فقط همین map پایین را اصلاح کنید
+                categoriesContainer.innerHTML = categories
+                    .map(
+                        (category) => `
+                    <div style="background: linear-gradient(to top, rgba(215, 209, 209, 0.3), rgba(0,0,0,0));">
+                        <img src="${category.icon}" alt="${category.name}">
+                        <p>${category.name}</p>
+                    </div>
+                `
+                    )
+                    .join("");
+            } catch (error) {
+                console.error("initCategoriesPage error:", error);
+
+        // اگر خطا از نوع "Failed to fetch" بود (قطعی شبکه یا CORS) پیام مخصوص نشان بده
+                const friendlyMessage =
+                    error.message === "Failed to fetch"
+                        ? "امکان اتصال به سرور وجود ندارد. اتصال اینترنت خود را بررسی کنید."
+                        : error.message;
+
+                showError(categoriesContainer, friendlyMessage);
+            } finally {
+                stopLoadingMessages();
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", initCategoriesPage);
+    </script>
 </body>
 </html>

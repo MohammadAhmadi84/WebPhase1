@@ -89,3 +89,40 @@
     transform: scale(0.98);
 }
 
+/* ==========================================================
+   فقط تغییرات موبایل - چیدمان دسکتاپ دست‌نخورده باقی می‌ماند
+   ========================================================== */
+@media (max-width: 768px) {
+
+    /* سکشن بیرونی (تصویر + فرم) که عرض ثابت 1280px به‌صورت inline دارد */
+    .contactSection {
+        width: 100% !important;
+        flex-direction: column !important;
+        padding: 0 5%;
+        gap: 30px;
+    }
+
+    .contactSection > img {
+        width: 100%;
+        height: auto;
+        margin-top: 0 !important;
+    }
+
+    /* تک‌ستونه شدن فیلدهای فرم */
+    .form-grid {
+        grid-template-columns: 1fr;
+        margin-top: 40px;
+    }
+
+    /* تمام عرض شدن اینپوت‌ها، select و textarea که در دسکتاپ عرض ثابت پیکسلی داشتند */
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        width: 100%;
+    }
+
+    /* دکمه ارسال، تمام عرض فرم را می‌گیرد برای تعامل لمسی بهتر */
+    .submit-btn {
+        width: 100%;
+    }
+}

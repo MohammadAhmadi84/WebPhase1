@@ -12,7 +12,7 @@
             <div class="websiteName">
                 Foodiland<span style="color: rgb(255, 128, 0);">.</span>
             </div>
-            <nav class="pagesNavigation">
+            <nav class="pagesNavigation" id="pagesNavigation">
                 <ul>Home</ul>
                 <ul>Recipes</ul>
                 <ul>Blog</ul>
@@ -24,9 +24,14 @@
                 <img src="../image/twitter.png" alt="twitter">
                 <img src="../image/instagram.png" alt="instagram">
             </div>
+            <button class="hamburgerBtn" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
         <hr style="color: srgba(0, 0, 0, 0.1);">
-    </header>
+        </header>
     <main class="main">
         <section class="blogPageTitle">
             <h1>Blog & Article</h1>
@@ -183,13 +188,13 @@
             </div>
         </section>
     </main>
-    <footer style="display: flex; flex-direction: column; width: 1280px; margin-left: 110px;">
-            <div class="footerTop">
+    <footer id="pageFooter" style="display: flex; flex-direction: column; width: 1280px; margin-left: 110px;">
+            <div id="footerHeadRow">
                 <div>
-                    <h1 class="websiteName">Foodiland<span style="color: rgb(255, 128, 0);">.</span></h1>
+                    <h1 id="footerBrandName">Foodiland<span style="color: rgb(255, 128, 0);">.</span></h1>
                     <p style="color: rgba(0, 0, 0, 0.5); font-family: Inter;">Lorem ipsum dolor sit amet, consectetuipisicing elit,</p>
                 </div>
-                <nav class="pagesNavigation" style="font-family: Inter; display: flex; justify-content: space-between;">
+                <nav id="footerMenuList" style="font-family: Inter; display: flex; justify-content: space-between;">
                     <ul>Recipes</ul>
                     <ul>Blog</ul>
                     <ul>Contact</ul>
@@ -197,9 +202,9 @@
                 </nav>
             </div>
             <hr style="color: rgb(0, 0, 0); margin-top: 10px; width: 100%;">
-            <div class="footerUnder">
+            <div id="footerBottomRow">
                 <p>© 2020 Flowbase. Powered by <span style="color: rgb(255, 128, 0);">Webflow</span></p>
-                <div class="footersocialIcons">
+                <div id="footerIconsGroup">
                     <img src="../image/facebook.png" alt="">
                     <img src="../image/twitter.png" alt="">
                     <img src="../image/instagram.png" alt="">

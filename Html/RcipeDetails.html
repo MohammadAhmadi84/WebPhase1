@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" href="../CSS/RecipeDetails.css">
     <link rel="stylesheet" href="../CSS/Main.css">
-]    <link rel="stylesheet" href="../CSS/HomePage.css">
+    <link rel="stylesheet" href="../CSS/HomePage.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Foodiland-Recipe Details</title>
@@ -14,7 +14,7 @@
             <div class="websiteName">
                 Foodiland<span style="color: rgb(255, 128, 0);">.</span>
             </div>
-            <nav class="pagesNavigation">
+            <nav class="pagesNavigation" id="pagesNavigation">
                 <ul>Home</ul>
                 <ul>Recipes</ul>
                 <ul>Blog</ul>
@@ -26,6 +26,11 @@
                 <img src="../image/twitter.png" alt="twitter">
                 <img src="../image/instagram.png" alt="instagram">
             </div>
+            <button class="hamburgerBtn" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
         <hr style="color: srgba(0, 0, 0, 0.1);">
     </header>
@@ -269,13 +274,13 @@
             </div>
         </section>
     </main>
-    <footer style="display: flex; flex-direction: column; width: 1280px; margin-left: 110px;">
-            <div class="footerTop">
+    <footer id="pageFooter" style="display: flex; flex-direction: column; width: 1280px; margin-left: 110px;">
+            <div id="footerHeadRow">
                 <div>
-                    <h1 class="websiteName">Foodiland<span style="color: rgb(255, 128, 0);">.</span></h1>
+                    <h1 id="footerBrandName">Foodiland<span style="color: rgb(255, 128, 0);">.</span></h1>
                     <p style="color: rgba(0, 0, 0, 0.5); font-family: Inter;">Lorem ipsum dolor sit amet, consectetuipisicing elit,</p>
                 </div>
-                <nav class="pagesNavigation" style="font-family: Inter; display: flex; justify-content: space-between;">
+                <nav id="footerMenuList" style="font-family: Inter; display: flex; justify-content: space-between;">
                     <ul>Recipes</ul>
                     <ul>Blog</ul>
                     <ul>Contact</ul>
@@ -283,9 +288,9 @@
                 </nav>
             </div>
             <hr style="color: rgb(0, 0, 0); margin-top: 10px; width: 100%;">
-            <div class="footerUnder">
+            <div id="footerBottomRow">
                 <p>© 2020 Flowbase. Powered by <span style="color: rgb(255, 128, 0);">Webflow</span></p>
-                <div class="footersocialIcons">
+                <div id="footerIconsGroup">
                     <img src="../image/facebook.png" alt="">
                     <img src="../image/twitter.png" alt="">
                     <img src="../image/instagram.png" alt="">
@@ -293,5 +298,185 @@
             </div>
     </footer>
     <script src="script.js"></script>
+    <script>
+        // ==========================================================
+// recipe-details.js — نمایش باکس آبی (اطلاعات تغذیه) + توضیحات متنی
+// GET /api/details-recipe/:id
+// شامل: Loading Spinner شیک + مدیریت خطا با try/catch + دکمه Retry
+// نیازمند بارگذاری recipe-details.css در صفحه
+// بدون هیچ تغییری در HTML فعلی کار می‌کند
+// ==========================================================
+
+const BASE_URL = "https://foodieland-oq9b.onrender.com";
+
+// پیام‌هایی که هنگام بارگذاری به‌ترتیب و با تاخیر نمایش داده می‌شوند
+// چون هاست رایگان ممکن است تا ۶۰ ثانیه طول بکشد تا بیدار شود
+const LOADING_MESSAGES = [
+    { delay: 0, text: "در حال دریافت اطلاعات رسپی..." },
+    { delay: 5000, text: "سرور رایگان است و ممکن است کمی طول بکشد..." },
+    { delay: 15000, text: "سرور در حال بیدار شدن است، لطفاً کمی صبر کنید..." },
+    { delay: 30000, text: "تقریباً تمام شد، فقط چند ثانیه دیگر..." },
+];
+
+/**
+ * نمایش وضعیت لودینگ در باکس تغذیه (اسپینر) و اسکلتون در پاراگراف توضیحات
+ * خروجی: تابعی برای متوقف‌کردن چرخه‌ی پیام‌ها (باید در finally صدا زده شود)
+ */
+function showLoadingState(nutritionBox, descriptionEl) {
+    // عنوان "Nutrition Information" را حفظ می‌کنیم و فقط بدنه را با اسپینر جایگزین می‌کنیم
+    nutritionBox.innerHTML = `
+        <h3>Nutrition Information</h3>
+        <div class="rdLoadingWrap">
+            <div class="rdSpinner"></div>
+            <p class="rdLoadingText" id="rdLoadingText">${LOADING_MESSAGES[0].text}</p>
+        </div>
+    `;
+
+    if (descriptionEl) {
+        descriptionEl.innerHTML = `
+            <span class="rdDescriptionSkeleton">
+                <span class="rdSkeletonLine" style="width: 100%;"></span>
+                <span class="rdSkeletonLine" style="width: 95%;"></span>
+                <span class="rdSkeletonLine" style="width: 80%;"></span>
+            </span>
+        `;
+    }
+
+    const textEl = nutritionBox.querySelector("#rdLoadingText");
+    const timers = LOADING_MESSAGES.slice(1).map(({ delay, text }) =>
+        setTimeout(() => {
+            if (textEl) {
+                textEl.style.opacity = "0";
+                setTimeout(() => {
+                    textEl.textContent = text;
+                    textEl.style.opacity = "1";
+                }, 200);
+            }
+        }, delay)
+    );
+
+    return () => timers.forEach(clearTimeout);
+}
+
+/**
+ * نمایش پیام خطای کاربرپسند به همراه دکمه‌ی تلاش مجدد در باکس تغذیه
+ */
+function showErrorState(nutritionBox, descriptionEl, message) {
+    nutritionBox.innerHTML = `
+        <h3>Nutrition Information</h3>
+        <div class="rdErrorWrap">
+            <div class="rdErrorIcon">⚠️</div>
+            <p class="rdErrorMessage">${message}</p>
+            <button class="rdRetryBtn" id="rdRetryBtn">تلاش مجدد</button>
+        </div>
+    `;
+
+    if (descriptionEl) {
+        descriptionEl.textContent = "متن توضیحات در دسترس نیست.";
+    }
+
+    const retryBtn = nutritionBox.querySelector("#rdRetryBtn");
+    if (retryBtn) {
+        retryBtn.addEventListener("click", initRecipeDetailsPage);
+    }
+}
+
+/**
+ * رندر نهایی داده‌های واقعی داخل باکس تغذیه و پاراگراف توضیحات
+ * ساختار فرض‌شده‌ی پاسخ API — اگر نام فیلدها فرق داشت فقط همین بخش را اصلاح کنید:
+ * { description, calories, totalFat, protein, carbohydrate, cholesterol, note }
+ */
+function renderRecipeDetails(nutritionBox, descriptionEl, recipe) {
+    nutritionBox.innerHTML = `
+        <h3>Nutrition Information</h3>
+        <div>
+            <p>Calories</p>
+            <p>${recipe.calories ?? "-"}</p>
+        </div>
+        <hr>
+        <div>
+            <p>Total Fat</p>
+            <p>${recipe.totalFat ?? "-"}</p>
+        </div>
+        <hr>
+        <div>
+            <p>Protein</p>
+            <p>${recipe.protein ?? "-"}</p>
+        </div>
+        <hr>
+        <div>
+            <p>Carbohydrate</p>
+            <p>${recipe.carbohydrate ?? "-"}</p>
+        </div>
+        <hr>
+        <div>
+            <p>Cholestrol</p>
+            <p>${recipe.cholesterol ?? "-"}</p>
+        </div>
+        <hr>
+        <p style="text-align: center; margin-top: 180px; margin-left: 10px; color: rgba(0,0,0,0.5);">
+            ${recipe.note ?? ""}
+        </p>
+    `;
+
+    if (descriptionEl) {
+        descriptionEl.innerHTML = recipe.description ?? "";
+        descriptionEl.style.color = "rgba(0,0,0,0.5)";
+        descriptionEl.style.marginTop = "50px";
+    }
+}
+
+/**
+ * دریافت جزئیات رسپی از API با مدیریت کامل خطا بر اساس کد وضعیت
+ */
+async function getRecipeDetails(recipeId) {
+    const response = await fetch(`${BASE_URL}/api/details-recipe/${recipeId}`);
+
+    if (!response.ok) {
+        if (response.status === 404) {
+            throw new Error("این رسپی پیدا نشد.");
+        }
+        if (response.status >= 500) {
+            throw new Error("سرور با مشکل مواجه شده. لطفاً چند لحظه دیگر دوباره امتحان کنید.");
+        }
+        throw new Error(`خطا در دریافت اطلاعات (کد ${response.status}).`);
+    }
+
+    return await response.json();
+}
+
+/**
+ * تابع اصلی: مدیریت لودینگ، خطا و رندر نهایی جزئیات رسپی
+ * آی‌دی رسپی از پارامتر URL خوانده می‌شود (مثلاً recipe-details.html?id=1)
+ * در صورت نبود پارامتر، مقدار پیش‌فرض ۱ استفاده می‌شود
+ */
+async function initRecipeDetailsPage() {
+    const nutritionBox = document.querySelector(".recipeInfo");
+    const descriptionEl = document.querySelector(".recipeMain > p");
+
+    if (!nutritionBox) return; // یعنی در این صفحه نیستیم
+
+    const stopLoadingMessages = showLoadingState(nutritionBox, descriptionEl);
+
+    try {
+        const recipeId = new URLSearchParams(window.location.search).get("id") || 1;
+        const recipe = await getRecipeDetails(recipeId);
+        renderRecipeDetails(nutritionBox, descriptionEl, recipe);
+    } catch (error) {
+        console.error("initRecipeDetailsPage error:", error);
+
+        const friendlyMessage =
+            error.message === "Failed to fetch"
+                ? "امکان اتصال به سرور وجود ندارد. اتصال اینترنت خود را بررسی کنید."
+                : error.message;
+
+        showErrorState(nutritionBox, descriptionEl, friendlyMessage);
+    } finally {
+        stopLoadingMessages();
+    }
+}
+
+document.addEventListener("DOMContentLoaded", initRecipeDetailsPage);
+    </script>
 </body>
 </html>
